@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-bidirectional-infinite-scroll";
+import styled from "styled-components";
 
 export default function Bidirectional() {
   const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ export default function Bidirectional() {
       addFirstDates();
     }
     return () => {};
-  }, []);
+  });
 
   const addFirstDates = () => {
     let prevDates = [];
@@ -21,7 +22,7 @@ export default function Bidirectional() {
       postDates.push(new Date(today.getTime() + i * 8.64e7));
     }
 
-    setData([...prevDates, today, ...postDates]);
+    return setData([...prevDates, today, ...postDates]);
   };
 
   const isSameDay = (d1, d2) => {
@@ -49,37 +50,24 @@ export default function Bidirectional() {
   const renderDates = () => {
     let result = data.map((date, index) => {
       return isSameDay(today, date) ? (
-        <React.Fragment key={index}>
-          <li style={{ fontWeight: "bold", color: "#494949" }}>
-            {" "}
-            >> TODAY {date.toDateString()}
-          </li>
-        </React.Fragment>
+        <li key={index} style={{ fontWeight: "bold", color: "#494949" }}>
+          {" "}
+          🎉 TODAY {date.toDateString()} 🎉
+        </li>
       ) : (
-        <React.Fragment key={index}>
-          <li style={{ color: "#494949" }}>{date.toDateString()}</li>
-        </React.Fragment>
+        <li key={index} style={{ color: "#494949" }}>
+          {date.toDateString()}
+        </li>
       );
     });
     return result;
   };
 
-  const handleScroll = (position) => {};
-  const element = document.getElementById("list");
-
   return (
     <>
-      <h1 style={{ color: "#494949" }}> Total Dates : {data.length}</h1>
-      <ul
-        id="list"
-        style={{
-          listStyleType: "none",
-          overflow: "auto",
-          height: 200,
-        }}
-      >
+      <Header style={{}}> Total Dates : {data.length}</Header>
+      <Container style={{ height: 200, listStyleType: "none" }}>
         <InfiniteScroll
-          onScroll={(position) => handleScroll(position)}
           onReachBottom={() =>
             setData([...data.concat(getMoreDays(2, "past"))])
           }
@@ -87,7 +75,12 @@ export default function Bidirectional() {
         >
           {renderDates()}
         </InfiniteScroll>
-      </ul>
+      </Container>
     </>
   );
 }
+
+const Header = styled.h1`
+  color: #494949;
+`;
+const Container = styled.div``;

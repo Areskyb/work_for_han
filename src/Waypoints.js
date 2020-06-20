@@ -51,11 +51,11 @@ function Waypoints() {
   const handleWaypoint = (index) => {
     if (index === 5) {
       console.log("render more prev dates");
-      let prevDays = getMoreDays(20, "prev");
+      let prevDays = getMoreDays(2, "prev");
       setData(prevDays.concat(...data));
     }
     if (index === data.length - 7) {
-      setData([...data.concat(getMoreDays(50, "past"))]);
+      setData([...data.concat(getMoreDays(2, "past"))]);
     }
   };
 
@@ -82,7 +82,7 @@ function Waypoints() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1> total dates => {data.length}</h1>
+      <h1> total Dates: {data.length}</h1>
       <ul
         style={{
           listStyleType: "none",
