@@ -65,13 +65,13 @@ export default function Bidirectional() {
 
   return (
     <>
-      <Header style={{}}> Total Dates : {data.length}</Header>
+      <Header style={{}}> Total Dates : {}</Header>
       <Container style={{ height: 200, listStyleType: "none" }}>
         <InfiniteScroll
           onReachBottom={() =>
-            setData([...data.concat(getMoreDays(2, "past"))])
+            setData([...data.concat(getMoreDays(10, "past"))])
           }
-          onReachTop={() => setData(getMoreDays(2).concat(...data))}
+          onReachTop={() => setData(getMoreDays(10).concat(...data))}
         >
           {renderDates()}
         </InfiniteScroll>
