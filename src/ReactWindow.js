@@ -12,6 +12,7 @@ export default function ReactWindow() {
     if (data.length === 520) scrollToToday();
     return () => {};
   });
+
   const listRef = React.createRef();
   const [data, setData] = useState([]);
   const [itemCount, setItemCount] = useState(20);
@@ -71,10 +72,8 @@ export default function ReactWindow() {
   };
 
   const Row = ({ index, style, data }) => {
-    if (!data[1]) return null;
-    if (!data[index]) return null;
+    if (!data[1] || !data[index]) return null;
     let date = data[index];
-    // return <div style={style}>Row {data[index].toDateString()}</div>;
 
     return isSameDay(today, date) ? (
       <div style={style}>
